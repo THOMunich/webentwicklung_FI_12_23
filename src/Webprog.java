@@ -32,9 +32,9 @@ public class Webprog {
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             System.out.println();
-            System.out.println("===============================");
+            System.out.println("===========================");
             System.out.println("Die Daten wurden gefunden");
-            System.out.println("===============================");
+            System.out.println("===========================");
         } else {
             System.out.println();
             System.out.println("===============================");
