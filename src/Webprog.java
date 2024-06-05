@@ -25,38 +25,45 @@ public class Webprog {
         Connection conn = DriverManager
         .getConnection("jdbc:mysql://localhost:3306/userdb", "root", "rootpassword");
 
-        // Benutzer anlegen/eingeben
-        String sqlEingabe = "INSERT INTO userdata (username, passwordcol, email) VALUES (?, ?, ?)";
-        PreparedStatement insertStatement = conn.prepareStatement(sqlEingabe);
-        insertStatement.setString(1, JOptionPane.showInputDialog("Bitte neuen Benutzernamen eingeben"));
-        insertStatement.setString(2, JOptionPane.showInputDialog("Bitte neues Passwort eingeben"));
-        insertStatement.setString(3, JOptionPane.showInputDialog("Bitte neue E-Mail eingeben"));
-        int rowsInserted = insertStatement.executeUpdate();
-        if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(null, "==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
-            System.out.println();
-            System.out.println("==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
-        }
+        String auswahl = JOptionPane.showInputDialog("Anlegen (1) oder Abfragen(2)");
 
-        // Abfrage SQL
-        String sqlAbfrage = "SELECT * FROM userdata WHERE username = ?"; // and passwordcol = ?";
-        // Eingabe
-        PreparedStatement statement = conn.prepareStatement(sqlAbfrage);
-        statement.setString(1, JOptionPane.showInputDialog("Bitte gesuchten Namen eingeben"));
-        statement.setString(2, JOptionPane.showInputDialog("Bitte gesuchtes Passwort eingeben"));
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            JOptionPane.showMessageDialog(null,"++ Die Daten wurden gefunden ++");
-            System.out.println();
-            System.out.println("===============================");
-            System.out.println("== Die Daten wurden gefunden ==");
-            System.out.println("===============================");
-        } else {
-            JOptionPane.showMessageDialog(null,"!! Die Daten wurden nicht gefunden !!");
-            System.out.println();
-            System.out.println("=====================================");
-            System.out.println("== Die Daten wurden nicht gefunden ==");
-            System.out.println("=====================================");
+        if (auswahl == "1") {
+
+
+            // Benutzer anlegen/eingeben
+            String sqlEingabe = "INSERT INTO userdata (username, passwordcol, email) VALUES (?, ?, ?)";
+            PreparedStatement insertStatement = conn.prepareStatement(sqlEingabe);
+            insertStatement.setString(1, JOptionPane.showInputDialog("Bitte neuen Benutzernamen eingeben"));
+            insertStatement.setString(2, JOptionPane.showInputDialog("Bitte neues Passwort eingeben"));
+            insertStatement.setString(3, JOptionPane.showInputDialog("Bitte neue E-Mail eingeben"));
+            int rowsInserted = insertStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null, "==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
+                System.out.println();
+                System.out.println("==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
+            }
+        }
+        else {
+            // Abfrage SQL
+            String sqlAbfrage = "SELECT * FROM userdata WHERE username = ?"; // and passwordcol = ?";
+            // Eingabe
+            PreparedStatement statement = conn.prepareStatement(sqlAbfrage);
+            statement.setString(1, JOptionPane.showInputDialog("Bitte gesuchten Namen eingeben"));
+            // statement.setString(2, JOptionPane.showInputDialog("Bitte gesuchtes Passwort eingeben"));
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(null, "++ Die Daten wurden gefunden ++");
+                System.out.println();
+                System.out.println("===============================");
+                System.out.println("== Die Daten wurden gefunden ==");
+                System.out.println("===============================");
+            } else {
+                JOptionPane.showMessageDialog(null, "!! Die Daten wurden nicht gefunden !!");
+                System.out.println();
+                System.out.println("=====================================");
+                System.out.println("== Die Daten wurden nicht gefunden ==");
+                System.out.println("=====================================");
+            }
         }
         conn.close();
 
