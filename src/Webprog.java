@@ -1,6 +1,7 @@
+
 import java.sql.*;
 
-import static javax.swing.JOptionPane.showInputDialog;
+import javax.swing.JOptionPane;
 
 
 public class Webprog {
@@ -27,28 +28,31 @@ public class Webprog {
         // Benutzer anlegen/eingeben
         String sqlEingabe = "INSERT INTO userdata (username, passwordcol, email) VALUES (?, ?, ?)";
         PreparedStatement insertStatement = conn.prepareStatement(sqlEingabe);
-        insertStatement.setString(1, showInputDialog("Bitte neuen Benutzernamen eingeben"));
-        insertStatement.setString(2, showInputDialog("Bitte neues Passwort eingeben"));
-        insertStatement.setString(3, showInputDialog("Bitte neue E-Mail eingeben"));
+        insertStatement.setString(1, JOptionPane.showInputDialog("Bitte neuen Benutzernamen eingeben"));
+        insertStatement.setString(2, JOptionPane.showInputDialog("Bitte neues Passwort eingeben"));
+        insertStatement.setString(3, JOptionPane.showInputDialog("Bitte neue E-Mail eingeben"));
         int rowsInserted = insertStatement.executeUpdate();
         if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(null, "==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
             System.out.println();
             System.out.println("==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
         }
 
         // Abfrage SQL
-        String sqlAbfrage = "SELECT * FROM userdata WHERE username = ? and passwordcol = ?";
+        String sqlAbfrage = "SELECT * FROM userdata WHERE username = ?"; // and passwordcol = ?";
         // Eingabe
         PreparedStatement statement = conn.prepareStatement(sqlAbfrage);
-        statement.setString(1, showInputDialog("Bitte gesuchten Namen eingeben"));
-        statement.setString(2, showInputDialog("Bitte gesuchtes Passwort eingeben"));
+        statement.setString(1, JOptionPane.showInputDialog("Bitte gesuchten Namen eingeben"));
+        statement.setString(2, JOptionPane.showInputDialog("Bitte gesuchtes Passwort eingeben"));
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
+            JOptionPane.showMessageDialog(null,"++ Die Daten wurden gefunden ++");
             System.out.println();
             System.out.println("===============================");
             System.out.println("== Die Daten wurden gefunden ==");
             System.out.println("===============================");
         } else {
+            JOptionPane.showMessageDialog(null,"!! Die Daten wurden nicht gefunden !!");
             System.out.println();
             System.out.println("=====================================");
             System.out.println("== Die Daten wurden nicht gefunden ==");
