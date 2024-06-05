@@ -23,9 +23,22 @@ public class Webprog {
         // Connection to MySQL
         Connection conn = DriverManager
         .getConnection("jdbc:mysql://localhost:3306/userdb", "root", "rootpassword");
+
+        // Benutzer anlegen/eingeben
+        String sqlEingabe = "INSERT INTO userdata (username, passwordcol, email) VALUES (?, ?, ?)";
+        PreparedStatement insertStatement = conn.prepareStatement(sqlEingabe);
+        insertStatement.setString(1, showInputDialog("Bitte neuen Benutzernamen eingeben"));
+        insertStatement.setString(2, showInputDialog("Bitte neues Passwort eingeben"));
+        insertStatement.setString(3, showInputDialog("Bitte neue E-Mail eingeben"));
+        int rowsInserted = insertStatement.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println();
+            System.out.println("==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
+        }
+
         // Abfrage SQL
         String sqlAbfrage = "SELECT * FROM userdata WHERE username = ? and passwordcol = ?";
-
+        // Eingabe
         PreparedStatement statement = conn.prepareStatement(sqlAbfrage);
         statement.setString(1, showInputDialog("Bitte gesuchten Namen eingeben"));
         statement.setString(2, showInputDialog("Bitte gesuchtes Passwort eingeben"));
@@ -42,7 +55,6 @@ public class Webprog {
             System.out.println("=====================================");
         }
         conn.close();
-
 
     }
 }
