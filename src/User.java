@@ -1,5 +1,5 @@
 /**
- * Speichert die Daten eine Nutzers
+ * Speichert die Daten eines Nutzers
  */
 
 public class User {
@@ -14,7 +14,7 @@ public class User {
         this.password = password;
         this.email = email;
     }
-    //Konstruktor mit freiwiller Altersangabe
+    //Konstruktor mit freiwilliger Altersangabe
     public User(String username, String password, String email, int alter) {
         this.username = username;
         this.password = password;
