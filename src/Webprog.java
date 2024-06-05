@@ -1,8 +1,7 @@
 
 import java.sql.*;
-
 import javax.swing.JOptionPane;
-
+import org.mindrot.jbcrypt.BCrypt;
 
 public class Webprog {
     public static void main(String[] args) throws SQLException {
@@ -27,16 +26,24 @@ public class Webprog {
 
         String auswahl = JOptionPane.showInputDialog("Anlegen (1) oder Abfragen(2)");
 
-        if (auswahl == "1") {
-
+        if (auswahl.equals ("1")) {
 
             // Benutzer anlegen/eingeben
+            String username = JOptionPane.showInputDialog("Bitte neuen Benutzernamen eingeben");
+            String plainPassword = JOptionPane.showInputDialog("Bitte neues Passwort eingeben");
+            String email = JOptionPane.showInputDialog("Bitte neue E-Mail eingeben");
+
+            // Passwort hashen
+            String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+
             String sqlEingabe = "INSERT INTO userdata (username, passwordcol, email) VALUES (?, ?, ?)";
             PreparedStatement insertStatement = conn.prepareStatement(sqlEingabe);
-            insertStatement.setString(1, JOptionPane.showInputDialog("Bitte neuen Benutzernamen eingeben"));
-            insertStatement.setString(2, JOptionPane.showInputDialog("Bitte neues Passwort eingeben"));
-            insertStatement.setString(3, JOptionPane.showInputDialog("Bitte neue E-Mail eingeben"));
+
+            insertStatement.setString(1, username);
+            insertStatement.setString(2, hashedPassword);
+            insertStatement.setString(3, email);
             int rowsInserted = insertStatement.executeUpdate();
+
             if (rowsInserted > 0) {
                 JOptionPane.showMessageDialog(null, "==> Ein neuer Benutzer wurde erfolgreich eingefügt!");
                 System.out.println();
@@ -66,6 +73,5 @@ public class Webprog {
             }
         }
         conn.close();
-
     }
 }
