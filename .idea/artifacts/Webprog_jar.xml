@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Webprog:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Webprog_jar</output-path>
+    <root id="archive" name="Webprog.jar">
+      <element id="module-output" name="Webprog" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../tho/mysql-connector-j-8.0.33.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
